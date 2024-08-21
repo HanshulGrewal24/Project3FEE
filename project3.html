@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Quiz Application</title>
+    <link rel="stylesheet" href="styless.css">
+</head>
+<body>
+    <h1 align="center">Interactive Quiz Application</h1>
+    <div class="quiz-container">
+        <div class="question-container">
+            <p id="question-text"></p>
+            <ul id="options-list">
+                <li><input type="radio" id="option1" name="answer"><label for="option1"></label></li>
+                <li><input type="radio" id="option2" name="answer"><label for="option2"></label></li>
+                <li><input type="radio" id="option3" name="answer"><label for="option3"></label></li>
+                <li><input type="radio" id="option4" name="answer"><label for="option4"></label></li>
+            </ul>
+            <button id="submit-btn">Submit</button>
+        </div>
+        <div class="score-container">
+            <p id="score-text"></p>
+        </div>
+        <div class="feedback-container">
+            <p id="feedback-text"></p>
+        </div>
+    </div>
+<script>
+    const quizData = [
+        {
+            question: "How many continents are there in the world?",
+            options: ["5", "6", "7", "8"],
+            answer: "7"
+        },
+        {
+            question: "Which planet is known as the Red Planet?",
+            options: ["Earth", "Mars", "Jupiter", "Saturn"],
+            answer: "Mars"
+        },
+        {
+            question: " Name the biggest continent in the world?",
+            options: ["Antarctica", "Asia", "Africa", "None"],
+            answer: "Asia"
+        }
+    ];
+
+    let currentQuestionIndex = 0;
+    let score = 0;
+
+    const questionContainer = document.getElementById("question-text");
+    const optionsContainer = document.getElementById("options-list");
+    const feedbackContainer = document.getElementById("feedback-text");
+    const scoreContainer = document.getElementById("score-text");
+    const submitButton = document.getElementById("submit-btn");
+
+    function loadQuestion() {
+        const currentQuestion = quizData[currentQuestionIndex];
+        questionContainer.textContent = currentQuestion.question;
+        optionsContainer.innerHTML = "";
+
+        currentQuestion.options.forEach((option, index) => {
+            const input = document.createElement("input");
+            input.type = "radio";
+            input.id = `option${index + 1}`;
+            input.name = "answer";
+            input.value = option;
+
+            const label = document.createElement("label");
+            label.htmlFor = `option${index + 1}`;
+            label.textContent = option;
+
+            const li = document.createElement("li");
+            li.appendChild(input);
+            li.appendChild(label);
+            optionsContainer.appendChild(li);
+        });
+    }
+
+    function selectOption() {
+        const selectedOption = document.querySelector('input[name="answer"]:checked');
+        if (selectedOption) {
+            const selectedValue = selectedOption.value;
+            const currentQuestion = quizData[currentQuestionIndex];
+            if (selectedValue === currentQuestion.answer) {
+                feedbackContainer.textContent = "Correct!";
+                score++;
+            } else {
+                feedbackContainer.textContent = `Incorrect! The correct answer is ${currentQuestion.answer}.`;
+            }
+
+            currentQuestionIndex++;
+            if (currentQuestionIndex < quizData.length) {
+                setTimeout(() => {
+                    feedbackContainer.textContent = "";
+                    loadQuestion();
+                }, 1000);
+            } else {
+                setTimeout(() => {
+                    showFinalScore();
+                }, 1000);
+            }
+        } else {
+            feedbackContainer.textContent = "Please select an option.";
+        }
+    }
+
+    function showFinalScore() {
+        questionContainer.style.display = "none";
+        optionsContainer.style.display = "none";
+        submitButton.style.display = "none";
+        scoreContainer.textContent = `Your final score is ${score} out of ${quizData.length}.`;
+    }
+
+    submitButton.addEventListener("click", selectOption);
+
+    loadQuestion();
+</script>
+</body>
+</html>

@@ -1,0 +1,76 @@
+body {
+    font-family: Arial, sans-serif;
+    background-image:url("second.jpeg");
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    margin: 0;
+    padding: 0;
+}
+
+.quiz-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.question-container {
+    margin-bottom: 20px;
+}
+
+#question-text {
+    font-size: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+#options-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#options-list li {
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+#options-list input[type="radio"] {
+    margin-right: 10px;
+    accent-color: #4CAF50; /* Modern browsers support this for styling radio buttons */
+}
+
+#submit-btn {
+    background-color: #4CAF50;
+    color: #fff;
+    padding: 12px 25px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+#submit-btn:hover {
+    background-color: #45a049;
+}
+
+.score-container, .feedback-container {
+    margin-top: 20px;
+}
+
+#score-text {
+    font-size: 26px;
+    font-weight: bold;
+    color: #333;
+}
+
+#feedback-text {
+    font-size: 18px;
+    color: #555;
+}
